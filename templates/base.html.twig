@@ -1,4 +1,6 @@
 <!DOCTYPE html>
+{# date varible #}
+{% set Date = date() %}
 <html>
 	<head>
 		<meta charset="UTF-8">
@@ -8,6 +10,7 @@
 		</title>
 		<link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 128 128%22><text y=%221.2em%22 font-size=%2296%22>⚫️</text><text y=%221.3em%22 x=%220.2em%22 font-size=%2276%22 fill=%22%23fff%22>sf</text></svg>"> {% block stylesheets %}{% endblock %}
 		<link rel="stylesheet" href="{{asset('bootstrap.css')}}">
+		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 	</head>
 	<body>
 
@@ -25,35 +28,51 @@
 							</a>
 						</li>
 						<li class="nav-item">
-							<a class="nav-link" href="{{url('admin_livres')}}">Nos Livres
+							<a class="nav-link" href="{{url('app_livres')}}">Nos Livres
 								<span class="visually-hidden">(current)</span>
 							</a>
 						</li>
-						<li class="nav-item">
-							<a class="nav-link" href="#">les catégories</a>
-						</li>
 
-
+						{%if app.user %}
+							{% if app.user.roles[0] == "ROLE_ADMIN" %}
+								<li class="nav-item">
+									<a class="nav-link" href="{{url('admin_livres')}}">Gestion Livres
+										<span class="visually-hidden">(current)</span>
+									</a>
+								</li>
+								<li class="nav-item">
+									<a class="nav-link" href="#">Gestion catégories</a>
+								</li>
+							{% endif %}
+						{% endif %}
 					</ul>
+					
 					<ul class="navbar-nav me-ml">
-						<li class="nav-item">
+						{# <li class="nav-item">
 							<a class="nav-link" href="#">Panier
 								<span class="visually-hidden">(current)</span>
 							</a>
-						</li>
+						</li> #}
+						<form class="d-flex">
+							<button class="btn btn-outline-dark" type="submit">
+								<i class="bi-cart-fill me-1"></i>
+								Panier
+								<span class="badge bg-dark text-white ms-1 rounded-pill">0</span>
+							</button>
+						</form>
 						{% if app.user %}
 							<li class="nav-item">
-								<a class="nav-link" href="{{url('app_logout')}}">Déconnexion</a>
+								<a class="nav-link" href="{{url('app_logout')}}"><i class="fa-solid fa-door-open"></i> Déconnexion</a>
 							</li>
 						{% else %}
 
 							<li class="nav-item">
-								<a class="nav-link" href="{{url('app_register')}}">S'inscrire
+								<a class="nav-link " href="{{url('app_login')}}"><i class="fa-solid fa-right-to-bracket"></i> Connexion
 									<span class="visually-hidden">(current)</span>
 								</a>
 							</li>
 							<li class="nav-item">
-								<a class="nav-link " href="{{url('app_login')}}">Connexion
+								<a class="nav-link" href="{{url('app_register')}}"><i class="fa-solid fa-user"></i> S'inscrire
 									<span class="visually-hidden">(current)</span>
 								</a>
 							</li>
@@ -66,7 +85,12 @@
 				</div>
 			</div>
 		</nav>
-		<div class="container mt-3"> {% block body %}{% endblock %}
-			</div>
+		{# Page content #}
+		<div class=""> {% block body %}{% endblock %}</div>
+		{# Footer #}
+		<footer class="py-5 bg-dark">
+            <div class="container"><p class="m-0 text-center text-white">Copyright &copy; SymBook {{Date | date('Y')}}
+			</p></div>
+        </footer>
 		</body>
 	</html>
