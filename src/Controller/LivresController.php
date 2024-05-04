@@ -88,12 +88,4 @@ class LivresController extends AbstractController
         ]);
     }
 
-    // partie User
-    #[Route('/livres', name: 'app_livres')]
-    public function indexUser(LivresRepository $rep): Response
-    {
-        $livres = $rep->findAll();
-        //dd($livres);
-        return $this->render('Livres/listLivres.html.twig', ['livres' => $livres]);
-    }
 }
