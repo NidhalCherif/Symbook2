@@ -1,0 +1,56 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Accueil
+{% endblock %}
+{% block body %}
+<h1 class="text-center mt-5">Liste des livres</h1>
+<section class="py-5">
+            <div class="container px-4 px-lg-5 mt-5">
+                <div class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-3 justify-content-center">
+                    {% for livre in livres %}
+                        <div class="col mb-5">
+                            <div class="card h-100">
+                                <!-- Product image-->
+                                <img class="card-img-top" src={{livre.image}} alt="..." />
+                                <!-- Product details-->
+                                <div class="card-body p-4">
+                                    <div class="text-center">
+                                        <!-- Product name-->
+                                    <h6 class="text-muted card-subtitle mb-2">{{livre.editeur}}</h6>
+                                    <h5 class="fw-bolder">{{livre.titre}}</h5>
+                                        <!-- Product reviews-->
+                                        {#<div class="d-flex justify-content-center small text-warning mb-2">
+                                            {% set note = random(6)%}
+                                            {% for i in range(1, 6) %}
+                                                {% if i <=  note %}
+                                                    <i class="fa-solid fa-star"></i>
+                                                {% else %}
+                                                    <i class="fa-regular fa-star"></i>
+                                                {% endif %}
+                                            {% endfor %}
+                                        </div>#}
+                                        <!-- Product price-->
+                                        <span class="text-muted text-decoration-line-through"></span>
+                                        {{livre.prix}} TND
+                                    </div>
+                                <a href="{{url('admin_livres_show',{'id':livre.id})}}" class="btn btn-success btn-sm">Voir détail...</a>
+                                </div>
+                                <!-- Product actions-->
+                                <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
+                                    <div class="text-center">
+                                        <a class="btn btn-outline-dark mt-auto" href="#">Add to cart</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    {% endfor %}
+                </div>
+                {# more #}
+                <div class="text-end">
+            <button class="btn btn-outline-primary mt-auto" id="load-more">More</button>
+        </div>
+            </div>
+        </section>
+
+
+{% endblock %}

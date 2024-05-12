@@ -11,10 +11,10 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
-
+#[Route('/admin/categorie')]
 class CategorieController extends AbstractController
 {
-    #[Route('/admin/categorie', name: 'admin_categorie')]
+    #[Route('/', name: 'admin_categorie')]
     public function index(CategoriesRepository $rep): Response
     {
         $categories = $rep->findAll();

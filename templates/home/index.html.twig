@@ -4,19 +4,105 @@
 {% endblock %}
 
 {% block body %}
-	<h1>Bienvenue sur le site de vente de livre SymBook</h1>
-	Lorem ipsum dolor sit amet consectetur adipisicing elit. Ipsa quam eos architecto earum, deleniti exercitationem id quidem odit, iure, doloribus repudiandae rem corrupti explicabo sapiente amet. Impedit, quisquam? Odit, inventore?
-	Expedita ab vel tempora veritatis odio exercitationem dolorem molestiae corrupti ipsa unde alias eius et nisi nihil perferendis aut suscipit ratione sequi nostrum numquam, repellendus ipsam tempore cumque molestias. Cupiditate.
-	Quos doloribus possimus molestias consequatur libero saepe ipsum placeat vitae ratione ut, quaerat perferendis, reprehenderit, neque amet omnis in iure. Eius fugiat dolorem sequi explicabo rem ducimus veritatis officia consectetur!
-	Hic aliquam doloremque quod quibusdam, quidem eius cupiditate consequatur dicta, ipsa obcaecati numquam sint, nulla est atque omnis ipsam assumenda architecto magnam fugiat rerum inventore impedit deserunt? Aliquid, rerum hic!
-	Ex delectus enim, cumque vitae odio quisquam a quos quae sapiente eum omnis voluptates sunt, ad neque dolor laboriosam earum itaque id! Reprehenderit veritatis a ipsum esse voluptates eligendi aut.
-	Laboriosam molestiae iusto quisquam numquam repellat ducimus nobis corrupti non, quaerat ex deleniti esse a obcaecati magni alias praesentium dolor accusantium reprehenderit ab culpa, necessitatibus laborum. Rem modi eveniet illum.
-	Ipsam quas veritatis, culpa totam, iusto voluptas impedit atque dolore quam voluptates suscipit provident? Sequi ut, sapiente animi quasi a facere laudantium rerum nisi labore facilis excepturi dignissimos, cumque ipsam!
-	Neque deleniti vitae temporibus sequi fugiat dolorum eum aspernatur, provident dolore natus, soluta laborum nostrum molestiae perspiciatis enim ipsa, dolorem ea laudantium. Quasi iste culpa laborum nostrum omnis maiores ab?
-	Quisquam possimus quo id voluptates dolore corporis, perferendis optio, accusantium molestias incidunt veniam dignissimos impedit atque minus laborum quasi? Sed recusandae placeat cum repudiandae odit odio minus incidunt fugit hic.
-	Quae nobis ut alias id asperiores excepturi, ipsam exercitationem omnis accusantium quidem placeat aliquam, unde ipsum adipisci. Eius maxime magnam necessitatibus eveniet rerum. Unde vitae maxime temporibus, doloribus expedita ea?
-	Corrupti itaque non tempora, nobis commodi velit hic dolore beatae eaque vel eum, quos maiores dolores similique consequatur autem vitae ratione? Quas est minus numquam! Praesentium iure veritatis modi libero!
-	Eveniet tempora sit minima repellat debitis facere eum veritatis architecto eos deserunt ducimus sequi ipsa asperiores molestiae commodi, odit perspiciatis cupiditate temporibus voluptates, voluptatem alias accusantium labore. Tempora, similique molestias.
-	Incidunt debitis fugiat facilis neque eveniet eaque iste ab reprehenderit consequatur tempora dicta, recusandae delectus beatae optio sapiente excepturi hic tenetur dolores ad, atque illum quis officia laborum sequi. Dolor.
-	Mollitia, earum natus. Nemo corporis explicabo esse ullam obcaecati. Esse enim maxime quae, inventore minus, laborum eligendi, possimus rem molestias consequuntur ad. Voluptatem, eligendi? Natus laborum eum non repellendus deserunt!
+    {# List des livres #}
+        <section>
+        <section>
+            <div class="d-flex justify-content-between container py-3 gap-3">
+                <div><button class="btn btn-success me-1" type="button"><i class="fas fa-sort" style="font-size: 17px;"></i></button><button class="btn btn-info" type="button" data-bs-toggle="offcanvas" data-bs-target="#filter-canvas" aria-controls="filter-canvas"><i class="fas fa-filter me-2"></i>Filtrer</button></div>
+                <form class="d-flex gap-1"><input class="form-control" type="text" placeholder="Rechercher par titre" name="search"><input class="btn btn-primary" type="submit" value="Chercher"></form>
+            </div>
+        </section>
+        <section class="mt-3 container-fluid">
+            {# Product List #}
+            <div class="row d-flex justify-content-between mx-3">
+                {# Product  #}
+                {% for livre in livres %}
+                <div class="card col-6 my-3 col-md-4 col-lg-3 w-md-25" style="max-width: 300px;">
+                    <div class="card-header p-1">
+                        <img alt="white book on black textile" class="w-100" src={{livre.image}}>
+                    </div>
+                    <div class="card-body">
+                        <div class="d-flex justify-content-between align-items-center">
+                            <h4>{{livre.titre}}</h4>
+                            <h4 class="text-success border rounded-5 px-2 py-1 border-success">{{livre.prix}}DT</h4>
+                        </div>
+                        <h6 class="text-muted card-subtitle mb-2">{{livre.auteur}}</h6>
+                        <p class="card-text">
+                            {{livre.resume}}
+                        </p>
+                        <div class="d-flex justify-content-between gap-3">
+                            <button class="btn btn-success w-50" type="button">Ajouter Panier</button>
+                            <button class="btn btn-primary w-50" type="button">consulter</button>
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+
+                {% if livres|length == 0 %}
+                    <div class="alert alert-warning" role="alert">
+                        Aucun livre trouvé
+                    </div>
+                {% endif %}
+                {# End Product #}
+            </div>
+            {# End Product List #}
+        </section>
+        {# End List des livres #}
+        {# Pagination #}
+        <section class="container d-flex justify-content-center my-3">
+            <nav>
+                <ul class="pagination">
+                    <li class="page-item"><a class="page-link" aria-label="Previous" href="#"><span aria-hidden="true">«</span></a></li>
+                    <li class="page-item"><a class="page-link" href="#">1</a></li>
+                    <li class="page-item"><a class="page-link" href="#">2</a></li>
+                    <li class="page-item"><a class="page-link" href="#">3</a></li>
+                    <li class="page-item"><a class="page-link" href="#">4</a></li>
+                    <li class="page-item"><a class="page-link" href="#">5</a></li>
+                    <li class="page-item"><a class="page-link" aria-label="Next" href="#"><span aria-hidden="true">»</span></a></li>
+                </ul>
+            </nav>
+        </section>
+        {# End Pagination #}
+    </section>
+    {# Offcanvas Filter #}
+    <div class="offcanvas offcanvas-start" tabindex="-1" id="filter-canvas">
+        <div class="offcanvas-header">
+            <h5 class="offcanvas-title">Filter</h5>
+            <button class="btn-close" type="button" aria-label="Close" data-bs-dismiss="offcanvas"></button>
+        </div>
+        <div class="offcanvas-body">
+            <p>Parcours et recherche de livres par titre, auteur et catégorie...</p>
+            <div>
+                <div class="input-group mb-2">
+                    <span class="input-group-text">Titre</span>
+                    <input class="form-control" type="text">
+                </div>
+                <div class="input-group mb-2">
+                    <span class="input-group-text">Auteur</span>
+                    <input class="form-control" type="text">
+                </div>
+                <div class="input-group mb-2">
+                    <span class="input-group-text">catégorie</span>
+                    <select class="form-select">
+                        <optgroup label="catégorie">
+                            <option value="">all</option>
+                            {% for categorie in categories %}
+                                <option value="{{categorie.id}}">{{categorie.libelle}}</option>
+                            {% endfor %}
+                        </optgroup>
+                    </select>
+                </div>
+                <div class="input-group">
+                    <span class="input-group-text">Prix</span>
+                    <input class="form-control" type="number" placeholder="Minimum" name="min_price">
+                    <input class="form-control" type="number" placeholder="Maximum" name="max_price">
+                </div>
+            </div>
+            <hr>
+            <div class="d-flex justify-content-end gap-3">
+                <button class="btn btn-primary" type="button" data-bs-dismiss="offcanvas">Close</button>
+                <button class="btn btn-success" type="button" data-bs-dismiss="offcanvas">Filtrer</button>
+            </div>
+        </div>
+    </div>
 {% endblock %}
